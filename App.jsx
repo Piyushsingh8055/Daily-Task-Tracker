@@ -12,7 +12,7 @@ import {
   Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { ToastAndroid } from 'react-native';
 const App = () => {
   const [task, setTask] = useState('');
   const [taskList, setTaskList] = useState([]);
@@ -32,9 +32,13 @@ const App = () => {
 
     loadTasks();
   }, []);
-
+  const showToast = message => {
+    ToastAndroid.show(message, ToastAndroid.SHORT);
+  };
+  
   const handleAddOrUpdateTask = async () => {
     if (task.length === 0) {
+      showToast("Please enter a task.");
       return;
     }
     let updatedTasks;
@@ -42,8 +46,10 @@ const App = () => {
       updatedTasks = [...taskList];
       updatedTasks[editIndex] = task;
       setEditIndex(-1);
+      showToast("Task updated successfully.");
     } else {
       updatedTasks = [...taskList, task];
+      showToast("Task added successfully.");
     }
     setTaskList(updatedTasks);
     setTask('');
@@ -53,7 +59,7 @@ const App = () => {
       console.error('Failed to save the tasks.');
     }
   };
-
+  
   const handleDeleteTask = index => {
     Alert.alert(
       "Delete Task",
@@ -69,18 +75,18 @@ const App = () => {
             const newTaskList = taskList.filter((_, i) => i !== index);
             setTaskList(newTaskList);
             await AsyncStorage.setItem('tasks', JSON.stringify(newTaskList));
+            showToast("Task deleted successfully.");
           }
         }
       ],
       { cancelable: false }
     );
   };
-
   const handleEditTask = (item, index) => {
     setTask(item);
     setEditIndex(index);
   };
-
+  
   const handleDeleteAllTasks = () => {
     Alert.alert(
       "Delete All Tasks",
@@ -95,6 +101,7 @@ const App = () => {
           onPress: async () => {
             setTaskList([]);
             await AsyncStorage.setItem('tasks', JSON.stringify([]));
+            showToast("All tasks deleted successfully.");
           }
         }
       ],
