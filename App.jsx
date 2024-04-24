@@ -63,8 +63,8 @@ const App = () => {
           text: "Cancel",
           style: "cancel"
         },
-        { 
-          text: "OK", 
+        {
+          text: "OK",
           onPress: async () => {
             const newTaskList = taskList.filter((_, i) => i !== index);
             setTaskList(newTaskList);
@@ -140,9 +140,11 @@ const App = () => {
           ))}
         </View>
       </ScrollView>
-      <TouchableOpacity onPress={handleDeleteAllTasks} style={styles.footerButton}>
-        <Text style={styles.footerButtonText}>Delete All Tasks</Text>
-      </TouchableOpacity>
+      {taskList.length > 1 && (
+        <TouchableOpacity onPress={handleDeleteAllTasks} style={styles.footerButton}>
+          <Text style={styles.footerButtonText}>Delete All Tasks</Text>
+        </TouchableOpacity>
+      )}
     </SafeAreaView>
   );
 };
@@ -150,30 +152,30 @@ const App = () => {
 const styles = StyleSheet.create({
   header: {
     padding: 16,
-    backgroundColor: '#333652', 
+    backgroundColor: '#333652',
     alignItems: 'center',
   },
   headerText: {
-    fontSize: 24, 
-    color: '#FFD700', 
-    fontWeight: 'bold', 
+    fontSize: 24,
+    color: '#FFD700',
+    fontWeight: 'bold',
   },
   inputStyle: {
-    backgroundColor: '#454B66', 
+    backgroundColor: '#454B66',
     padding: 14,
     marginVertical: 10,
     marginHorizontal: 20,
     borderRadius: 8,
     fontSize: 18,
-    color: '#FFFFFF',  
+    color: '#FFFFFF',
   },
   buttonStyle: {
-    backgroundColor: '#4ECDC4', 
+    backgroundColor: '#4ECDC4',
     padding: 14,
     margin: 20,
     borderRadius: 8,
     alignItems: 'center',
-    shadowColor: '#000', 
+    shadowColor: '#000',
     shadowOpacity: 0.2,
     shadowRadius: 5,
     elevation: 10,
@@ -184,14 +186,14 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   taskNumber: {
-    color: '#4ECDC4', 
+    color: '#4ECDC4',
     fontWeight: 'bold',
     marginRight: 4,
   },
   taskItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#555B6E', 
+    backgroundColor: '#555B6E',
     padding: 12,
     marginVertical: 6,
     borderRadius: 8,
@@ -202,24 +204,24 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   editButton: {
-    backgroundColor: '#FFD700', 
+    backgroundColor: '#FFD700',
     padding: 8,
     marginHorizontal: 6,
     borderRadius: 6,
   },
   deleteButton: {
-    backgroundColor: '#EF233C', 
+    backgroundColor: '#EF233C',
     padding: 8,
     borderRadius: 6,
   },
   editButtonText: {
-    color: '#333652', 
+    color: '#333652',
   },
   deleteButtonText: {
     color: '#FFFFFF',
   },
   footerButton: {
-    backgroundColor: '#EF233C', 
+    backgroundColor: '#EF233C',
     padding: 16,
     alignItems: 'center',
     width: '100%'
