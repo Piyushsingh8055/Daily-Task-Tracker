@@ -81,6 +81,27 @@ const App = () => {
     setEditIndex(index);
   };
 
+  const handleDeleteAllTasks = () => {
+    Alert.alert(
+      "Delete All Tasks",
+      "Are you sure you want to delete all tasks?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel"
+        },
+        {
+          text: "OK",
+          onPress: async () => {
+            setTaskList([]);
+            await AsyncStorage.setItem('tasks', JSON.stringify([]));
+          }
+        }
+      ],
+      { cancelable: false }
+    );
+  };
+
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
     backgroundColor: isDarkMode ? '#282c34' : '#f7f7f7',
@@ -107,9 +128,10 @@ const App = () => {
           </TouchableOpacity>
           {taskList.map((item, index) => (
             <View key={index} style={styles.taskItem}>
+              <Text style={styles.taskNumber}>{index + 1}:</Text>
               <Text style={styles.taskText}>{item}</Text>
               <TouchableOpacity onPress={() => handleEditTask(item, index)} style={styles.editButton}>
-                <Text style={styles.editButtonText}>Edit</Text>
+                <Text style={styles.editButtonText}>Update</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handleDeleteTask(index)} style={styles.deleteButton}>
                 <Text style={styles.deleteButtonText}>Delete</Text>
@@ -118,6 +140,9 @@ const App = () => {
           ))}
         </View>
       </ScrollView>
+      <TouchableOpacity onPress={handleDeleteAllTasks} style={styles.footerButton}>
+        <Text style={styles.footerButtonText}>Delete All Tasks</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -125,64 +150,85 @@ const App = () => {
 const styles = StyleSheet.create({
   header: {
     padding: 16,
-    backgroundColor: '#4a4e69',
+    backgroundColor: '#333652', 
     alignItems: 'center',
   },
   headerText: {
-    fontSize: 20,
-    color: '#fff',
-    fontWeight: 'bold',
+    fontSize: 24, 
+    color: '#FFD700', 
+    fontWeight: 'bold', 
   },
   inputStyle: {
-    backgroundColor: '#85300f',
-    padding: 12,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderRadius: 6,
-    fontSize: 16,
+    backgroundColor: '#454B66', 
+    padding: 14,
+    marginVertical: 10,
+    marginHorizontal: 20,
+    borderRadius: 8,
+    fontSize: 18,
+    color: '#FFFFFF',  
   },
   buttonStyle: {
-    backgroundColor: '#39b970',
-    padding: 12,
-    margin: 16,
-    borderRadius: 6,
+    backgroundColor: '#4ECDC4', 
+    padding: 14,
+    margin: 20,
+    borderRadius: 8,
     alignItems: 'center',
+    shadowColor: '#000', 
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 10,
   },
   textStyle: {
-    color: '#f1f1f4',
+    color: '#FFFFFF',
     fontSize: 18,
     fontWeight: '500',
+  },
+  taskNumber: {
+    color: '#4ECDC4', 
+    fontWeight: 'bold',
+    marginRight: 4,
   },
   taskItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#85300f',
-    padding: 10,
-    marginVertical: 4,
-    borderRadius: 6,
+    backgroundColor: '#555B6E', 
+    padding: 12,
+    marginVertical: 6,
+    borderRadius: 8,
   },
   taskText: {
     flex: 1,
     fontSize: 16,
-    color: '#fff',
+    color: '#FFFFFF',
   },
   editButton: {
-    backgroundColor: '#f2e9e4',
-    padding: 6,
-    marginHorizontal: 4,
-    borderRadius: 4,
+    backgroundColor: '#FFD700', 
+    padding: 8,
+    marginHorizontal: 6,
+    borderRadius: 6,
   },
   deleteButton: {
-    backgroundColor: '#c71f37',
-    padding: 6,
-    borderRadius: 4,
+    backgroundColor: '#EF233C', 
+    padding: 8,
+    borderRadius: 6,
   },
   editButtonText: {
-    color: 'black',
+    color: '#333652', 
   },
   deleteButtonText: {
-    color: '#fff',
+    color: '#FFFFFF',
   },
+  footerButton: {
+    backgroundColor: '#EF233C', 
+    padding: 16,
+    alignItems: 'center',
+    width: '100%'
+  },
+  footerButtonText: {
+    color: '#FFFFFF',
+    fontSize: 18,
+    fontWeight: '500'
+  }
 });
 
 export default App;
