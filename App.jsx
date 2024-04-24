@@ -100,7 +100,7 @@ const App = () => {
             onChangeText={setTask}
             value={task}
             placeholder="Enter a new task"
-            placeholderTextColor={isDarkMode ? '#c9ada7' : '#4a4e69'}
+            placeholderTextColor={isDarkMode ? '#f8f5f4' : '#f7f8fb'}
           />
           <TouchableOpacity onPress={handleAddOrUpdateTask} style={styles.buttonStyle}>
             <Text style={styles.textStyle}>{editIndex >= 0 ? 'Update Task' : 'Add Task'}</Text>
@@ -142,14 +142,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   buttonStyle: {
-    backgroundColor: '#9a8c98',
+    backgroundColor: '#39b970',
     padding: 12,
     margin: 16,
     borderRadius: 6,
     alignItems: 'center',
   },
   textStyle: {
-    color: '#22223b',
+    color: '#f1f1f4',
     fontSize: 18,
     fontWeight: '500',
   },
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   editButtonText: {
-    color: '#333',
+    color: 'black',
   },
   deleteButtonText: {
     color: '#fff',

@@ -1,4 +1,4 @@
-package com.mynewproject
+package com.AddTask
 
 import android.app.Application
 import com.facebook.react.PackageList
